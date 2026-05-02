@@ -1,16 +1,51 @@
 package vcTris;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
+import javax.swing.Timer;
+import modelTris.Model;
 /**
  *
  * @author Vittorio Privitera
  */
 public class MainGame extends javax.swing.JFrame {
-    
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(MainGame.class.getName());
+    private Model model;
+    private Timer timer;
+    private Timer timerPar;
+    private boolean faseUtente;
+    private int contPc=0,contUt=0,secondi=0;
     /**
      * Creates new form MainGame
      */
     public MainGame() {
         initComponents();
+         b1_btn.putClientProperty("x",0);    
+        b1_btn.putClientProperty("y",0);
+        b2_btn.putClientProperty("x",0);
+        b2_btn.putClientProperty("y",1);
+        b4_btn.putClientProperty("x",0);
+        b4_btn.putClientProperty("y",2);
+        b3_btn.putClientProperty("x",1);
+        b3_btn.putClientProperty("y",0);
+        b5_btn.putClientProperty("x",1);
+        b5_btn.putClientProperty("y",1);
+        b6_btn.putClientProperty("x",1);
+        b6_btn.putClientProperty("y",2);
+        b7_btn.putClientProperty("x",2);
+        b7_btn.putClientProperty("y",0);
+        b8_btn.putClientProperty("x",2);
+        b8_btn.putClientProperty("y",1);
+        b9_btn.putClientProperty("x",2);
+        b9_btn.putClientProperty("y",2);
+        this.model=new Model();
+        abilitaDisabilita(true);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -82,6 +117,11 @@ public class MainGame extends javax.swing.JFrame {
         b1_btn.setMaximumSize(new java.awt.Dimension(100, 100));
         b1_btn.setMinimumSize(new java.awt.Dimension(100, 100));
         b1_btn.setPreferredSize(new java.awt.Dimension(100, 100));
+        b1_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                b1_btnActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -89,10 +129,20 @@ public class MainGame extends javax.swing.JFrame {
 
         b2_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/vuoto.png"))); // NOI18N
         b2_btn.setPreferredSize(new java.awt.Dimension(100, 100));
+        b2_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                b2_btnActionPerformed(evt);
+            }
+        });
         jPanel4.add(b2_btn, new java.awt.GridBagConstraints());
 
         b3_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/vuoto.png"))); // NOI18N
         b3_btn.setPreferredSize(new java.awt.Dimension(100, 100));
+        b3_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                b3_btnActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
@@ -100,6 +150,11 @@ public class MainGame extends javax.swing.JFrame {
 
         b4_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/vuoto.png"))); // NOI18N
         b4_btn.setPreferredSize(new java.awt.Dimension(100, 100));
+        b4_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                b4_btnActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 0;
@@ -107,6 +162,11 @@ public class MainGame extends javax.swing.JFrame {
 
         b5_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/vuoto.png"))); // NOI18N
         b5_btn.setPreferredSize(new java.awt.Dimension(100, 100));
+        b5_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                b5_btnActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
@@ -114,6 +174,11 @@ public class MainGame extends javax.swing.JFrame {
 
         b6_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/vuoto.png"))); // NOI18N
         b6_btn.setPreferredSize(new java.awt.Dimension(100, 100));
+        b6_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                b6_btnActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 1;
@@ -121,6 +186,11 @@ public class MainGame extends javax.swing.JFrame {
 
         b7_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/vuoto.png"))); // NOI18N
         b7_btn.setPreferredSize(new java.awt.Dimension(100, 100));
+        b7_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                b7_btnActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
@@ -129,12 +199,22 @@ public class MainGame extends javax.swing.JFrame {
         b8_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/vuoto.png"))); // NOI18N
         b8_btn.setToolTipText("");
         b8_btn.setPreferredSize(new java.awt.Dimension(100, 100));
+        b8_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                b8_btnActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridy = 2;
         jPanel4.add(b8_btn, gridBagConstraints);
 
         b9_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/vuoto.png"))); // NOI18N
         b9_btn.setPreferredSize(new java.awt.Dimension(100, 100));
+        b9_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                b9_btnActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 2;
@@ -144,6 +224,11 @@ public class MainGame extends javax.swing.JFrame {
         bInizia_btn.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         bInizia_btn.setForeground(new java.awt.Color(255, 255, 255));
         bInizia_btn.setText("START");
+        bInizia_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bInizia_btnActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel2.setText("Username:");
@@ -154,11 +239,21 @@ public class MainGame extends javax.swing.JFrame {
         finisci_btn.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         finisci_btn.setForeground(new java.awt.Color(255, 255, 255));
         finisci_btn.setText("FINISH");
+        finisci_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                finisci_btnActionPerformed(evt);
+            }
+        });
 
         rivedi_btn.setBackground(new java.awt.Color(153, 153, 255));
         rivedi_btn.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         rivedi_btn.setForeground(new java.awt.Color(255, 255, 255));
         rivedi_btn.setText("REPLAY");
+        rivedi_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rivedi_btnActionPerformed(evt);
+            }
+        });
 
         difficoltà.add(bottoMedio_btn);
         bottoMedio_btn.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -267,6 +362,308 @@ public class MainGame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void bInizia_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bInizia_btnActionPerformed
+        iniziaPartita();
+    }//GEN-LAST:event_bInizia_btnActionPerformed
+
+    private void finisci_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_finisci_btnActionPerformed
+        terminaPartita();
+    }//GEN-LAST:event_finisci_btnActionPerformed
+
+    private void rivedi_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rivedi_btnActionPerformed
+        rivedi();
+    }//GEN-LAST:event_rivedi_btnActionPerformed
+
+    private void b1_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b1_btnActionPerformed
+        griglia(evt);
+    }//GEN-LAST:event_b1_btnActionPerformed
+
+    private void b2_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b2_btnActionPerformed
+        griglia(evt);
+    }//GEN-LAST:event_b2_btnActionPerformed
+
+    private void b4_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b4_btnActionPerformed
+        griglia(evt);
+    }//GEN-LAST:event_b4_btnActionPerformed
+
+    private void b3_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b3_btnActionPerformed
+        griglia(evt);
+    }//GEN-LAST:event_b3_btnActionPerformed
+
+    private void b5_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b5_btnActionPerformed
+        griglia(evt);
+    }//GEN-LAST:event_b5_btnActionPerformed
+
+    private void b6_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b6_btnActionPerformed
+        griglia(evt);
+    }//GEN-LAST:event_b6_btnActionPerformed
+
+    private void b7_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b7_btnActionPerformed
+        griglia(evt);
+    }//GEN-LAST:event_b7_btnActionPerformed
+
+    private void b8_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b8_btnActionPerformed
+        griglia(evt);
+    }//GEN-LAST:event_b8_btnActionPerformed
+
+    private void b9_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b9_btnActionPerformed
+        griglia(evt);
+    }//GEN-LAST:event_b9_btnActionPerformed
+    
+    private void rivedi() 
+    {
+        allineaGrafica(); 
+        String[] mosseUt=model.getMosseUt();
+        String[] mossePc=model.getMosse();
+        contPc=0;
+        contUt=0;
+        faseUtente=true;
+        timer=new Timer(1500,new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(faseUtente) 
+                {
+                    if(contUt>=mosseUt.length||mosseUt[contUt].equals("0")) 
+                    {
+                        faseUtente=false;
+                        return;
+                    }
+                    String[] mossa=mosseUt[contUt].split(",");
+                    int x=Integer.parseInt(mossa[0]);
+                    int y=Integer.parseInt(mossa[1]);
+                    JButton b=buttonPc(x,y);
+                    b.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/x.png")));
+                    contUt++;
+                    faseUtente=false;
+                    return;
+                }
+                if(contPc>=mossePc.length||mossePc[contPc].equals("0")) 
+                {
+                    timer.stop();
+                    return;
+                }
+                String[] mossa=mossePc[contPc].split(",");
+                int x=Integer.parseInt(mossa[0]);
+                int y=Integer.parseInt(mossa[1]);
+                JButton b=buttonPc(x,y);
+                b.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/cerchio.png")));
+                contPc++;
+                faseUtente=true;
+            }
+        });
+        timer.start();
+    }
+
+    private void griglia(java.awt.event.ActionEvent evt)
+    {
+        JButton b=(JButton)evt.getSource();
+        JButton bPc;
+        int x,y;
+        x=(int)b.getClientProperty("x");
+        y=(int)b.getClientProperty("y");
+        int xPc,yPc;
+        //System.out.println(x+" "+y);
+        //this.model.stampaMatrice();
+        int esito=this.model.gioco(x,y);
+        switch(esito)
+        {
+            case -4:
+                JOptionPane.showMessageDialog(null,"Non stai giocando");
+                terminaPartita();
+                break;
+            case -3:
+                JOptionPane.showMessageDialog(null,"Hai cliccato un bottone non disponibile");
+                break;
+            case 0:
+                b.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/x.png")));
+                xPc=this.model.getxPc();
+                yPc=this.model.getyPc();
+                bPc=buttonPc(xPc,yPc);
+                bPc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/cerchio.png")));
+                JOptionPane.showMessageDialog(null,"Ha vinto il pc");
+                break;
+            case -2:
+                b.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/x.png")));
+                xPc=this.model.getxPc();
+                yPc=this.model.getyPc();
+                bPc=buttonPc(xPc,yPc);
+                bPc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/cerchio.png")));
+                JOptionPane.showMessageDialog(null,"Ha vinto "+username_txt.getText());
+                salvaRecord();
+                break;
+            case -1:
+                b.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/x.png")));
+                xPc=this.model.getxPc();
+                yPc=this.model.getyPc();
+                bPc=buttonPc(xPc,yPc);
+                bPc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/cerchio.png")));
+                break; 
+            case -5:
+                b.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/x.png")));
+                JOptionPane.showMessageDialog(null,"Pareggio!");
+                break;
+            case 2:  //difficolta facile
+                b.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/x.png")));
+                xPc=this.model.getxPc();
+                yPc=this.model.getyPc();
+                bPc=buttonPc(xPc,yPc);
+                bPc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/cerchio.png")));
+                JOptionPane.showMessageDialog(null,"Ha vinto il pc");
+                break;
+        }
+        //System.out.println(this.model.getxPc()+" "+this.model.getyPc());
+        //System.out.println("");
+        //this.model.stampaMatrice();
+    }
+    
+    private JButton buttonPc(int x,int y) 
+    {
+        if(x==0&&y==0)return b1_btn;
+        if(x==0&&y==1)return b2_btn;
+        if(x==0&&y==2)return b4_btn;
+        if(x==1&&y==0)return b3_btn;
+        if(x==1&&y==1)return b5_btn;
+        if(x==1&&y==2)return b6_btn;
+        if(x==2&&y==0)return b7_btn;
+        if(x==2&&y==1)return b8_btn;
+        if(x==2&&y==2)return b9_btn;
+        return null;
+    }
+    
+    private int bottone()
+    {
+        if(bottoFacile_btn.isSelected())return 1;
+        if(bottoMedio_btn.isSelected())return 0;
+        return -1;
+    }
+    
+    private void scriviFile(String nome,int tempo) 
+    {
+        File file=new File("record.txt");
+        try 
+        {
+            FileWriter fw=new FileWriter(file);
+            BufferedWriter bw=new BufferedWriter(fw);
+            bw.write(nome+";"+tempo);
+            bw.close();   
+            fw.close();
+        } 
+        catch(Exception e) 
+        {
+            //System.out.println(e.fillInStackTrace());
+            //System.out.println("eccezione");
+        }
+    }
+    
+    private int leggiFile() 
+    {
+        File file=new File("record.txt");
+        try 
+        {
+            FileReader fr=new FileReader(file);
+            BufferedReader br=new BufferedReader(fr);
+            String linea=br.readLine();
+            //System.out.println(linea);
+            if(linea==null||linea.isEmpty())return 0;
+            String[] parti=linea.split(";");
+            record_lbl.setText("Record: "+parti[0]+" "+parti[1]);
+            //System.out.println(parti[1]);
+            br.close();
+            fr.close();
+            return Integer.parseInt(parti[1]);
+        } 
+        catch(Exception e) 
+        {
+            //sSystem.out.println(e.fillInStackTrace());
+            //System.out.println("Eccezione");
+        }
+        return 0;
+    }
+    
+    private void salvaRecord()
+    {
+        int record=leggiFile();
+        if(secondi<record)scriviFile(username_txt.getText(),secondi);
+    }
+    
+    private void iniziaPartita()
+    {
+        if(this.model.isInGioco())return;
+        if(username_txt.getText().isEmpty())
+        {
+            JOptionPane.showMessageDialog(null,"Devi inserire l'username");
+            return;
+        }
+        int x=bottone();
+        switch(x)
+        {
+            case -1:
+                JOptionPane.showMessageDialog(null,"Devi scegliere la difficoltà");
+                return;
+            case 1:
+                this.model.iniziaPartita(true);
+                break;
+            case 0:
+                this.model.iniziaPartita(false);
+                break;
+        }
+        abilitaDisabilita(false);
+        allineaGrafica();
+        this.secondi=0;
+        timerPar=new Timer(1000,new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                secondi++;
+                tempo_lbl.setText("Tempo: "+secondi);
+            }
+        });
+        timerPar.start();
+        leggiFile();
+    }
+    private void abilitaDisabilita(boolean b) //true
+    {
+        username_txt.setEditable(b);
+        bottoFacile_btn.setEnabled(b);
+        bottoMedio_btn.setEnabled(b);
+        bInizia_btn.setEnabled(b);
+        finisci_btn.setEnabled(!b);
+        rivedi_btn.setEnabled(!b);
+        b1_btn.setEnabled(!b);
+        b2_btn.setEnabled(!b);
+        b3_btn.setEnabled(!b);
+        b4_btn.setEnabled(!b);
+        b5_btn.setEnabled(!b);
+        b6_btn.setEnabled(!b);
+        b7_btn.setEnabled(!b);
+        b8_btn.setEnabled(!b);
+        b9_btn.setEnabled(!b);
+        /*
+        for(Button b: GridBagLayout)
+        {
+            b.setEnabled(!b);
+        }*/
+    }
+    
+    private void allineaGrafica()
+    {
+        b1_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/vuoto.png")));
+        b2_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/vuoto.png")));
+        b3_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/vuoto.png")));
+        b4_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/vuoto.png")));
+        b5_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/vuoto.png")));
+        b6_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/vuoto.png")));
+        b7_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/vuoto.png")));
+        b8_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/vuoto.png")));
+        b9_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/vuoto.png")));
+    }
+
+    private void terminaPartita()
+    {
+       if(!this.model.isInGioco())return;
+       this.model.terminaPartita();
+       abilitaDisabilita(true);
+       if(timerPar!=null)timerPar.stop();
+    }  
     
     /**
      * @param args the command line arguments
