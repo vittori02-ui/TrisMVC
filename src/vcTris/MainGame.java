@@ -1,11 +1,6 @@
 package vcTris;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
@@ -489,7 +484,6 @@ public class MainGame extends javax.swing.JFrame {
                 bPc=buttonPc(xPc,yPc);
                 bPc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/cerchio.png")));
                 JOptionPane.showMessageDialog(null,"Ha vinto "+username_txt.getText());
-                salvaRecord();
                 break;
             case -1:
                 b.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/x.png")));
@@ -537,55 +531,6 @@ public class MainGame extends javax.swing.JFrame {
         return -1;
     }
     
-    private void scriviFile(String nome,int tempo) 
-    {
-        File file=new File("record.txt");
-        try 
-        {
-            FileWriter fw=new FileWriter(file);
-            BufferedWriter bw=new BufferedWriter(fw);
-            bw.write(nome+";"+tempo);
-            bw.close();   
-            fw.close();
-        } 
-        catch(Exception e) 
-        {
-            //System.out.println(e.fillInStackTrace());
-            //System.out.println("eccezione");
-        }
-    }
-    
-    private int leggiFile() 
-    {
-        File file=new File("record.txt");
-        try 
-        {
-            FileReader fr=new FileReader(file);
-            BufferedReader br=new BufferedReader(fr);
-            String linea=br.readLine();
-            //System.out.println(linea);
-            if(linea==null||linea.isEmpty())return 0;
-            String[] parti=linea.split(";");
-            record_lbl.setText("Record: "+parti[0]+" "+parti[1]);
-            //System.out.println(parti[1]);
-            br.close();
-            fr.close();
-            return Integer.parseInt(parti[1]);
-        } 
-        catch(Exception e) 
-        {
-            //sSystem.out.println(e.fillInStackTrace());
-            //System.out.println("Eccezione");
-        }
-        return 0;
-    }
-    
-    private void salvaRecord()
-    {
-        int record=leggiFile();
-        if(secondi<record)scriviFile(username_txt.getText(),secondi);
-    }
-    
     private void iniziaPartita()
     {
         if(this.model.isInGioco())return;
@@ -618,7 +563,6 @@ public class MainGame extends javax.swing.JFrame {
             }
         });
         timerPar.start();
-        leggiFile();
     }
     private void abilitaDisabilita(boolean b) //true
     {
@@ -630,7 +574,6 @@ public class MainGame extends javax.swing.JFrame {
         rivedi_btn.setEnabled(!b);
         b1_btn.setEnabled(!b);
         b2_btn.setEnabled(!b);
-        b3_btn.setEnabled(!b);
         b4_btn.setEnabled(!b);
         b5_btn.setEnabled(!b);
         b6_btn.setEnabled(!b);
