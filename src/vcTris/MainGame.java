@@ -26,7 +26,7 @@ public class MainGame extends javax.swing.JFrame {
      */
     public MainGame() {
         initComponents();
-         b1_btn.putClientProperty("x",0);    
+        b1_btn.putClientProperty("x",0);    
         b1_btn.putClientProperty("y",0);
         b2_btn.putClientProperty("x",0);
         b2_btn.putClientProperty("y",1);
@@ -580,6 +580,7 @@ public class MainGame extends javax.swing.JFrame {
         rivedi_btn.setEnabled(!b);
         b1_btn.setEnabled(!b);
         b2_btn.setEnabled(!b);
+        b3_btn.setEnabled(!b);
         b4_btn.setEnabled(!b);
         b5_btn.setEnabled(!b);
         b6_btn.setEnabled(!b);
