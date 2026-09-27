@@ -11,5 +11,5 @@ N.B obviously the app is for Windows
 
 ### Some images of the game
 
-![](img/open(2).png)
+![](img/open.png)
 ![](img/gameTris.png)
